@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop - Nipio502 Farms</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    header {
+      background: #4CAF50;
+      padding: 10px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .product {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 10px;
+      width: 200px;
+      text-align: center;
+    }
+    .product img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #FFA500;
+      border: none;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div><strong>Nipio502 Farms</strong></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section>
+  <h1>Our Fresh Fruits</h1>
+  <div class="products">
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1592928300988-7d95dc1636e1" alt="Pawpaw">
+      <h3>Pawpaw</h3>
+      <p>$5 per kg</p>
+      <button onclick="addToCart('Pawpaw', 5)">Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1574226516831-e1dff420e13f" alt="Banana">
+      <h3>Banana</h3>
+      <p>$3 per bunch</p>
+      <button onclick="addToCart('Banana', 3)">Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1592928300408-0c86e7982c7b" alt="Mango">
+      <h3>Mango</h3>
+      <p>$4 per kg</p>
+      <button onclick="addToCart('Mango', 4)">Add to Cart</button>
+    </div>
+    <!-- You can add more fruits here -->
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Nipio502 Farms | Freshness Guaranteed
+</footer>
+
+</body>
+</html>
+<script>
+  let cart = [];
+
+  function addToCart(productName, productPrice) {
+    // Add the product to cart array
+    cart.push({ name: productName, price: productPrice });
+    alert(productName + " has been added to your cart!");
+    saveCart();
+  }
+
+  function saveCart() {
+    // Save cart to local storage
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+</script>
+
+

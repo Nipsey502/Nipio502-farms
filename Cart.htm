@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Cart - Nipio502 Farms</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    header {
+      background: #4CAF50;
+      padding: 10px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 15px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      background: #FFA500;
+      border: none;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    form {
+      margin-top: 30px;
+    }
+    input, textarea {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1em;
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div><strong>Nipio502 Farms</strong></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<section>
+  <h1>Your Cart</h1>
+  <div id="cart-items"></div>
+  <h2 id="total"></h2>
+<section>
+  <h1>Your Cart</h1>
+  <div id="cart-items"></div>
+  <h2 id="total"></h2>
+
+  <!-- Checkout Button -->
+  <button onclick="checkoutWhatsApp()">Checkout via WhatsApp</button>
+</section>
+
+<!-- JavaScript Section -->
+<script>
+// Load cart items on page load
+document.addEventListener('DOMContentLoaded', () => {
+  displayCart();
+});
+
+// Function to display cart items
+function displayCart() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let cartItemsContainer = document.getElementById('cart-items');
+  let totalContainer = document.getElementById('total');
+  
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+    totalContainer.innerHTML = "";
+    return;
+  }
+
+  cartItemsContainer.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    let itemElement = document.createElement('div');
+    itemElement.textContent = `${item.name} - $${item.price}`;
+    cartItemsContainer.appendChild(itemElement);
+    total += item.price;
+  });
+
+  totalContainer.textContent = `Total: $${total.toFixed(2)}`;
+}
+
+// Function for WhatsApp Checkout
+function checkoutWhatsApp() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  let cartItems = cart.map(item => `${item.name} - $${item.price}`).join(", ");
+  let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+  let message = `Hi Nipio502 Farms! I would like to order the following items: ${cartItems}. Total amount: $${total}.`;
+
+  let encodedMessage = encodeURIComponent(message);
+
+  // Your WhatsApp Number
+  let phoneNumber = "265883785277"; // <<< Replace this with your WhatsApp number
+
+  let whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+  window.open(whatsappURL, "_blank");
+}
+</script>
+</section>
+
+<footer>
+  &copy; 2025 Nipio502 Farms | Freshness Guaranteed
+</footer>
+
+<script>
+  function loadCart() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartItemsDiv = document.getElementById('cart-items');
+    let totalDiv = document.getElementById('total');
+    
+    if (cart.length === 0) {
+      cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+      totalDiv.innerHTML = "";
+      return;
+    }
+    
+    let html = "<table><tr><th>Product</th><th>Price</th></tr>";
+    let total = 0;
+    
+    for (let item of cart) {
+      html += `<tr><td>${item.name}</td><td>$${item.price}</td></tr>`;
+      total += item.price;
+    }
+    
+    html += "</table>";
+    cartItemsDiv.innerHTML = html;
+    totalDiv.innerHTML = `<strong>Total: $${total}</strong>`;
+  }
+
+  function showCheckoutForm() {
+    document.getElementById('checkout-form').style.display = 'block';
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  function submitOrder(event) {
+    event.preventDefault(); // Stop form from refreshing page
+
+    let name = document.getElementById('name').value.trim();
+    let phone = document.getElementById('phone').value.trim();
+    let address = document.getElementById('address').value.trim();
+
+    if (!name || !phone || !address) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    alert(`Thank you ${name}! Your order has been received.\nWe will contact you at ${phone}.\nDelivery to: ${address}`);
+    
+    localStorage.removeItem('cart'); // Clear the cart after order
+    window.location.href = "index.html"; // Redirect to Home
+  }
+
+  loadCart();
+</script>
+
+</body>
+</html>
